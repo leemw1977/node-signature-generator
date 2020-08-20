@@ -17,7 +17,7 @@ const credentials = {
     secret: process.env.CLIENT_SECRET
   },
   auth: {
-    tokenHost: "https://us.battle.net"
+    tokenHost: "https://eu.battle.net"
   }
 };
 const oauth2 = require("simple-oauth2").create(credentials);
@@ -41,10 +41,10 @@ const getClasses = () => {
   return getToken()
     .then(token => {
       return rp.get({
-        uri: `https://us.api.blizzard.com/wow/data/character/classes`,
+        uri: `https://eu.api.blizzard.com/wow/data/character/classes`,
         json: true,
         qs: {
-          locale: "en_US"
+          locale: "en_GB"
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -58,7 +58,7 @@ const getClasses = () => {
 
 const getImage = character => {
   return new Promise((resolve, reject) => {
-    const avatarUrl = `https://render-us.worldofwarcraft.com/character/${character.thumbnail.replace(
+    const avatarUrl = `https://render-eu.worldofwarcraft.com/character/${character.thumbnail.replace(
       "-avatar.jpg",
       "-inset.jpg"
     )}`;
@@ -117,11 +117,11 @@ const getImage = character => {
 const getCharacter = (name, realm) => {
   return getToken().then(token => {
     return rp.get({
-      uri: `https://us.api.blizzard.com/wow/character/${realm.toLowerCase()}/${name.toLowerCase()}`,
+      uri: `https://eu.api.blizzard.com/wow/character/${realm.toLowerCase()}/${name.toLowerCase()}`,
       json: true,
       qs: {
         fields: "guild,items",
-        locale: "en_US"
+        locale: "en_GB"
       },
       headers: {
         Authorization: `Bearer ${token}`
